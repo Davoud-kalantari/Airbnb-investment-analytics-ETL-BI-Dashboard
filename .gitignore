@@ -1,0 +1,28 @@
+# OS / editor
+Thumbs.db
+Desktop.ini
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Python / notebooks
+.ipynb_checkpoints/
+__pycache__/
+
+# Tableau recovery / cache / logs
+*.twbr
+*.log
+*.hyper
+*.tds
+
+# Large exports generated locally
+outputs/*.csv
+outputs/*.xlsx
+outputs/*.hyper
+data/raw/listings.csv
+reports/_sanitized_cover_temp*.pdf
+
+# Optional archive space
+archive/
+private_reference/

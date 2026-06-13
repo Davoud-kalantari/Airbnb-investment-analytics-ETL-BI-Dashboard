@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Airbnb Investment Analytics BI Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Browser BI Dashboard</p>
+          <h1>Airbnb Investment Analytics ETL &amp; BI Dashboard</h1>
+          <p class="hero-text">
+            This browser dashboard reconstructs the Final Dashboard / Step 4
+            decision logic from the Tableau workflow using public-safe
+            processed data only. It follows the same business path:
+            occupancy-led screening, best-city selection, best house-type
+            ranking, and budget feasibility analysis.
+          </p>
+          <div class="hero-actions">
+            <a href="../README.md">Open README</a>
+            <a href="../reports/airbnb_investment_analytics_report.pdf">Open PDF Report</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="panel-block">
+            <p class="panel-label">Data sources</p>
+            <p>
+              <code>data/processed/airbnb_investment_dataset_final.xlsx</code>
+            </p>
+            <p>
+              <code>data/processed/occupancy_sensitivity_dataset.xlsx</code>
+            </p>
+            <p><code>dashboard_preview/data/dashboard_data.csv</code></p>
+          </div>
+          <div class="panel-block">
+            <p class="panel-label">Public-safe scope</p>
+            <p>
+              No host names, host IDs, listing names, licenses, or exact
+              coordinates are exposed in this preview.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="workflow-band">
+        <article class="workflow-card">
+          <p class="workflow-step">1</p>
+          <h2>Occupancy-Led Screening</h2>
+          <p>
+            Start from adjusted occupancy behavior to isolate the strongest
+            city-level operating context.
+          </p>
+        </article>
+        <article class="workflow-card">
+          <p class="workflow-step">2</p>
+          <h2>City + House Type Ranking</h2>
+          <p>
+            Rank city and house-type combinations by
+            <code>ADJ_AIRBNB_YROI</code> and compare them with
+            <code>RENT_YROI</code>.
+          </p>
+        </article>
+        <article class="workflow-card">
+          <p class="workflow-step">3</p>
+          <h2>Financial Feasibility</h2>
+          <p>
+            Test affordability using budget, loan amount, interest rate, and
+            difference-to-budget scenario logic.
+          </p>
+        </article>
+      </section>
+
+      <section class="controls-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Controls</p>
+            <h2>Interactive Filters and Scenario Inputs</h2>
+          </div>
+          <p class="section-note" id="metricsNotice"></p>
+        </div>
+
+        <div class="controls-grid">
+          <label class="control-card">
+            <span>City</span>
+            <select id="cityFilter"></select>
+          </label>
+          <label class="control-card">
+            <span>House Type</span>
+            <select id="houseTypeFilter"></select>
+          </label>
+          <label class="control-card">
+            <span>Metric</span>
+            <select id="metricFilter"></select>
+          </label>
+          <label class="control-card">
+            <span>Sorting</span>
+            <select id="sortFilter">
+              <option value="desc">Highest first</option>
+              <option value="asc">Lowest first</option>
+            </select>
+          </label>
+          <label class="control-card control-card-range">
+            <span>Budget</span>
+            <strong id="budgetValue"></strong>
+            <input
+              id="budgetSlider"
+              type="range"
+              min="300000"
+              max="1200000"
+              step="10000"
+            />
+          </label>
+          <label class="control-card control-card-range">
+            <span>Interest Rate</span>
+            <strong id="interestValue"></strong>
+            <input
+              id="interestSlider"
+              type="range"
+              min="0.02"
+              max="0.06"
+              step="0.001"
+            />
+          </label>
+          <label class="control-card control-card-search">
+            <span>Decision Table Search</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search city or house type"
+            />
+          </label>
+        </div>
+      </section>
+
+      <section class="kpi-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">KPI Layer</p>
+            <h2>Selection and Feasibility Snapshot</h2>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <article class="kpi-card" id="kpiEligibleCities">
+            <p class="kpi-label">Eligible Cities</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiAvgOccupancy">
+            <p class="kpi-label">Avg Adjusted Occupancy</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiAdjYroi">
+            <p class="kpi-label">Avg ADJ_AIRBNB_YROI</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiRentYroi">
+            <p class="kpi-label">Avg RENT_YROI</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiBestCity">
+            <p class="kpi-label">Best City</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiBestType">
+            <p class="kpi-label">Best House Type</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiTotalHousePrice">
+            <p class="kpi-label">Total House Price</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiDifferenceTotal">
+            <p class="kpi-label">Remaining Budget / Difference</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+          <article class="kpi-card" id="kpiLoanAmount">
+            <p class="kpi-label">Loan Amount</p>
+            <p class="kpi-value">-</p>
+            <p class="kpi-subtle"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="charts-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Analysis Views</p>
+            <h2>Occupancy, ROI, and Feasibility Charts</h2>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <article class="chart-card">
+            <div class="chart-header">
+              <h3>Top Cities by Adjusted Occupancy Rate</h3>
+              <p>Occupancy-first screening across cities with meaningful inventory.</p>
+            </div>
+            <div id="topCitiesChart" class="plot"></div>
+          </article>
+
+          <article class="chart-card">
+            <div class="chart-header">
+              <h3>City + House Type Ranking by ADJ_AIRBNB_YROI</h3>
+              <p>Shortlist of the best city and property combinations after city screening.</p>
+            </div>
+            <div id="cityHouseChart" class="plot"></div>
+          </article>
+
+          <article class="chart-card chart-card-wide">
+            <div class="chart-header">
+              <h3>ROI Comparison</h3>
+              <p>Compare Airbnb-adjusted ROI against long-term rent ROI on the same shortlist.</p>
+            </div>
+            <div id="roiChart" class="plot plot-wide"></div>
+          </article>
+
+          <article class="chart-card chart-card-wide">
+            <div class="chart-header">
+              <h3>Financial Valuation</h3>
+              <p>Budget vs cumulative house price for the top filtered opportunities.</p>
+            </div>
+            <div id="financialChart" class="plot plot-wide"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="table-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Decision Table</p>
+            <h2>Top 25 Feasibility View</h2>
+          </div>
+          <p class="section-note" id="tableCaption"></p>
+        </div>
+
+        <div class="table-card">
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>City</th>
+                  <th>House Type</th>
+                  <th>Adj Occupancy</th>
+                  <th>ADJ_AIRBNB_YROI</th>
+                  <th>RENT_YROI</th>
+                  <th>ROI Ratio</th>
+                  <th>House Price</th>
+                  <th>ADJ_AIRBNB_NEW</th>
+                  <th>Annual Rent</th>
+                  <th>Service Cost</th>
+                  <th>Cumulative House Price</th>
+                  <th>Difference Total</th>
+                  <th>Loan Amount</th>
+                  <th>Annual Interest</th>
+                </tr>
+              </thead>
+              <tbody id="decisionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
