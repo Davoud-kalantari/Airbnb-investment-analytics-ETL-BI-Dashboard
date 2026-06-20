@@ -2,45 +2,35 @@
 
 ## Pipeline Objective
 
-The ETL pipeline consolidates Airbnb listing data, housing characteristics, city-level market benchmarks, and occupancy assumptions into a prepared dataset for investment analysis and Tableau Desktop reporting.
+The Tableau Prep workflow combines listing-level Airbnb information, housing attributes, city-level buy/rent benchmarks, and occupancy assumptions into processed datasets for investment analysis.
 
-## Main Inputs
+## Public-Safe Inputs in This Repository
 
 - `data/raw/airbnb_price.xlsx`
 - `data/raw/house_info.xlsx`
 - `data/raw/cities_in_sicily.xlsx`
 - `data/raw/cities_in_sicily_buy_rent.xlsx`
 - `data/raw/occupancy_rate_by_city.xlsx`
-- `data/raw/listings.csv`
+- `data/raw/listings_sample_public.csv`
 
-## Transformation Logic
+## Published Workflow Logic
 
-The original project evidence indicates the following core ETL pattern:
+1. Ingest raw Airbnb, property, and city-level reference files in Tableau Prep.
+2. Standardize join keys and clean analytical fields.
+3. Combine listing-level and city-level tables into unified analytical records.
+4. Compute revenue, rent, service-cost, occupancy-adjusted, and ROI-oriented metrics.
+5. Export processed outputs for Tableau Desktop and the browser dashboard reconstruction.
 
-1. Source ingestion
-   Raw Excel and CSV files are loaded into Tableau Prep.
+## Repo-Safe Tableau Prep Assets
 
-2. Data cleaning
-   Fields used for integration are standardized and cleaned before join operations.
+- `tableau/prep/airbnb_investment_pipeline_final_repo_safe.tfl`
+- `tableau/prep/airbnb_investment_pipeline_early_version_repo_safe.tfl`
 
-3. Data integration
-   Listing-level data is combined with property details and city-level buy/rent reference information.
-
-4. Business calculations
-   The flow computes analytical fields related to Airbnb revenue potential, rent comparison, service cost, annual values, and return-oriented metrics.
-
-5. Analytical output
-   The final output is exported as an Excel dataset for Tableau Desktop dashboards.
-
-## Selected Prep Assets
-
-- `tableau/prep/airbnb_investment_pipeline_final.tfl`
-- `tableau/prep/airbnb_investment_pipeline_early_version.tfl`
-
-## Final Processed Output Included
+## Published Outputs
 
 - `data/processed/airbnb_investment_dataset_final.xlsx`
+- `data/processed/occupancy_sensitivity_dataset.xlsx`
 
-## Known Portability Note
+## Portability Note
 
-The Tableau Prep files originated in a local working environment and may still contain machine-specific path references. Before publication or reuse, the flow should be opened and all inputs/outputs should be repointed to the files inside this repository.
+The published repository keeps the repo-safe Tableau Prep flows only. They were prepared to point to repository-local files, but should still be opened in Tableau Prep to confirm path resolution and schema refresh behavior.

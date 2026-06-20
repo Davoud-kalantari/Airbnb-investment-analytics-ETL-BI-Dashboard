@@ -1,23 +1,35 @@
 # Dashboard Logic
 
-## Dashboard Objective
+## Objective
 
-The dashboard layer translates the processed investment dataset into decision-support views that help compare cities and property types under Airbnb and traditional rent scenarios.
+The dashboard layer presents city and property-type comparisons for Airbnb-style returns versus traditional rent benchmarks.
 
-## Included Dashboard Files
+## Included Dashboard Assets
 
 - `tableau/dashboards/airbnb_investment_analytics_dashboard.twb`
 - `tableau/dashboards/occupancy_sensitivity_dashboard.twb`
+- `dashboard_preview/index.html`
 
-## Main Analytical Themes
+## Main Analytical Views
 
 - city-level opportunity screening
 - property-type comparison
-- Airbnb vs rent yield comparison
-- occupancy-adjusted scenario analysis
-- investment-oriented KPI review
+- Airbnb versus rent yield comparison
+- occupancy-adjusted scenario review
+- budget and feasibility exploration in the browser preview
 
-## Screenshot Evidence Included
+## Main Metrics Used
+
+- `adj_airbnb_yroi`
+- `rent_yroi`
+- `roi_ratio`
+- `adjusted_occupancy_rate`
+- `annual_airbnb_rent`
+- `annual_rent`
+- `service_cost`
+- `house_price`
+
+## Preview Evidence
 
 - `evidence/screenshots/top_20_cities_by_listing_volume.png`
 - `evidence/screenshots/top_5_cities_by_rent_yroi.png`
@@ -28,18 +40,6 @@ The dashboard layer translates the processed investment dataset into decision-su
 - `evidence/screenshots/new_index_comparison.png`
 - `evidence/screenshots/city_and_property_type_comparison.png`
 
-## Expected KPI Logic
+## Validation Note
 
-Based on the final workbook structure and processed dataset fields, the dashboard appears to rely on:
-
-- Airbnb YROI
-- Rent YROI
-- annual Airbnb revenue
-- annual rent benchmark
-- service cost adjustments
-- city-level averages
-- property-type segmentation
-
-## Known Manual Check
-
-The Tableau workbooks were copied from the original project and professionally renamed, but the internal workbook connections should still be validated to ensure they point to the processed dataset inside this repository.
+The browser preview is the easiest way to review the analytical story without Tableau. Tableau workbook connections should still be validated inside Tableau Desktop for full tool-level confirmation.

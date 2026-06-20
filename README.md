@@ -1,100 +1,18 @@
 # Airbnb Investment Analytics ETL & BI Dashboard
 
-This repository presents an ETL and BI workflow built around Airbnb and real-estate market data in Sicily. The project integrates multiple Excel and CSV sources, prepares analytical outputs in Tableau Prep, and delivers Tableau Desktop assets plus a browser-based dashboard reconstruction for ROI analysis, occupancy-rate evaluation, and location-level investment decision support.
+Airbnb and real-estate investment analysis for Sicilian cities, built from cleaned Excel and CSV inputs, prepared in Tableau, and exposed through Tableau workbooks plus a browser dashboard preview.
 
-Tools & Stack: Tableau Prep | Tableau Desktop | Excel | CSV | ETL | BI Analytics
+## Project Scope
 
-## Executive Summary
+This public repository is intentionally limited to:
 
-The project evaluates short-term rental potential across Sicilian cities and property types by combining Airbnb listing data, housing market benchmarks, and occupancy assumptions. The result is a prepared dataset, a Tableau-based analytical layer, and a recruiter-friendly browser dashboard that support comparison between Airbnb-style income potential and more traditional rental performance.
+- public-safe raw inputs
+- processed analytical outputs
+- Tableau Prep and Tableau Desktop assets that point to repository-local files
+- browser dashboard preview files
+- documentation needed to understand the workflow
 
-## Business Problem
-
-Investors and analysts need a structured way to compare where short-term rental opportunities may outperform traditional rent. Raw data alone is fragmented across listing-level sources, market reference tables, and occupancy assumptions. This project addresses that by creating a repeatable ETL pipeline and a dashboard-ready analytical output.
-
-## Report
-
-Public report:
-
-- [airbnb_investment_analytics_report.pdf](reports/airbnb_investment_analytics_report.pdf)
-
-The original academic PDF is retained only as a private reference and is not intended for public publication.
-
-## Data Sources
-
-The repository includes the main public-safe source files used in the workflow:
-
-- `data/raw/airbnb_price.xlsx`
-- `data/raw/house_info.xlsx`
-- `data/raw/cities_in_sicily.xlsx`
-- `data/raw/cities_in_sicily_buy_rent.xlsx`
-- `data/raw/occupancy_rate_by_city.xlsx`
-- `data/raw/listings_sample_public.csv`
-
-The full `listings.csv` file is excluded from Git tracking for privacy and publication reasons. A sampled public-safe version is provided instead to demonstrate the ETL/BI workflow without exposing host identifiers or exact coordinates.
-
-## ETL Workflow
-
-The ETL pipeline is implemented in Tableau Prep and follows a business-oriented transformation flow:
-
-1. Ingest Airbnb, property, and city-level benchmark sources.
-2. Clean and standardize fields used for joins and downstream analysis.
-3. Join listing-level and city-level information into unified analytical outputs.
-4. Calculate investment metrics such as annual Airbnb revenue, rent benchmarks, ROI-oriented comparison fields, and occupancy-adjusted views.
-5. Export processed outputs for dashboard consumption in Tableau Desktop.
-
-See [etl_workflow.md](docs/etl_workflow.md) for the documented pipeline logic.
-
-## Tableau Prep Pipeline
-
-Included pipeline assets:
-
-- `tableau/prep/airbnb_investment_pipeline_final.tfl`
-- `tableau/prep/airbnb_investment_pipeline_early_version.tfl`
-- `tableau/prep/airbnb_investment_pipeline_final_repo_safe.tfl`
-- `tableau/prep/airbnb_investment_pipeline_early_version_repo_safe.tfl`
-
-The `repo_safe` variants are the recommended starting point for validation inside the cleaned repository because they already replace the original machine-specific input and output references where a safe automatic mapping was possible.
-
-## Dashboard Overview
-
-Included Tableau Desktop assets:
-
-- `tableau/dashboards/airbnb_investment_analytics_dashboard.twb`
-- `tableau/dashboards/occupancy_sensitivity_dashboard.twb`
-
-The dashboards focus on:
-
-- city-level listing concentration
-- property-type segmentation
-- rent vs Airbnb yield comparison
-- occupancy-adjusted performance views
-- comparative decision support for investment screening
-
-![Dashboard preview](evidence/screenshots/new_index_comparison.png)
-
-See [dashboard_logic.md](docs/dashboard_logic.md) for the documented dashboard structure.
-
-## Dashboard Access
-
-There are three ways to review the dashboard layer:
-
-- Browser dashboard reconstruction: `dashboard_preview/index.html`
-- PDF report: `reports/airbnb_investment_analytics_report.pdf`
-- Tableau files: `tableau/prep/` and `tableau/dashboards/` for users with Tableau Prep or Tableau Desktop
-
-The browser dashboard reconstructs the Final Dashboard / Step 4 Tableau logic and can be reviewed without a Tableau license. The interactive Tableau dashboard can be republished to Tableau Public only after validating the workbook connections and confirming that all underlying data is public-safe.
-
-## Key Metrics
-
-The project centers on metrics such as:
-
-- Airbnb YROI
-- Rent YROI
-- annual Airbnb rent / revenue
-- annual rent benchmark
-- occupancy-adjusted comparisons
-- city-level and property-type performance indicators
+The full private `listings.csv` file is not included. A reduced public-safe sample is provided instead.
 
 ## Repository Structure
 
@@ -104,56 +22,80 @@ airbnb-investment-analytics-etl-bi-dashboard/
 |   |-- raw/
 |   `-- processed/
 |-- dashboard_preview/
-|-- tableau/
-|   |-- prep/
-|   `-- dashboards/
 |-- docs/
 |-- evidence/
 |   `-- screenshots/
 |-- outputs/
 |-- reports/
+|-- tableau/
+|   |-- dashboards/
+|   `-- prep/
 |-- .gitignore
-|-- CLEANUP_SUMMARY.md
-|-- FINAL_PUBLICATION_REVIEW.md
+|-- LICENSE
 `-- README.md
 ```
 
-## How to Reproduce
+## Included Data
 
-1. Open the interactive browser dashboard in `dashboard_preview/index.html`.
-2. Review the Final Dashboard reconstruction logic described in `dashboard_preview/README.md`.
-3. Open the `repo_safe` Tableau Prep flow in `tableau/prep/`.
-4. Validate or remap input file paths to the local copies under `data/raw/`.
-5. Compare the outputs against:
+Public-safe raw inputs:
+
+- `data/raw/airbnb_price.xlsx`
+- `data/raw/house_info.xlsx`
+- `data/raw/cities_in_sicily.xlsx`
+- `data/raw/cities_in_sicily_buy_rent.xlsx`
+- `data/raw/occupancy_rate_by_city.xlsx`
+- `data/raw/listings_sample_public.csv`
+
+Processed outputs:
+
+- `data/processed/airbnb_investment_dataset_final.xlsx`
+- `data/processed/occupancy_sensitivity_dataset.xlsx`
+
+See `docs/data_sources.md` for source notes and publication scope.
+
+## Quick Review Paths
+
+1. Open `dashboard_preview/index.html` for the browser reconstruction of the analysis flow.
+2. Open `reports/airbnb_investment_analytics_report.pdf` for the written report.
+3. Open the Tableau files under `tableau/` if you want to inspect the original BI assets.
+
+## How to Reproduce the Published Package
+
+1. Clone the repository.
+2. Review the public-safe input files under `data/raw/`.
+3. Open one of the repo-safe Tableau Prep flows:
+   - `tableau/prep/airbnb_investment_pipeline_final_repo_safe.tfl`
+   - `tableau/prep/airbnb_investment_pipeline_early_version_repo_safe.tfl`
+4. Verify that Tableau Prep resolves the repository-local input files.
+5. Compare the flow outputs against:
    - `data/processed/airbnb_investment_dataset_final.xlsx`
    - `data/processed/occupancy_sensitivity_dataset.xlsx`
-6. Open the Tableau Desktop workbooks in `tableau/dashboards/`.
-7. Validate that the workbook data connections resolve correctly inside your local clone.
+6. Open the Tableau workbooks in `tableau/dashboards/`.
+7. Open `dashboard_preview/index.html` to review the browser-accessible dashboard version.
 
-## Technologies Used
+## Dashboard Preview
 
-- Tableau Prep
-- Tableau Desktop
-- Excel
-- CSV-based source integration
-- ETL pipeline design
-- BI dashboard development
+The browser dashboard is provided for reviewers who do not have Tableau.
+
+- entry point: `dashboard_preview/index.html`
+- local dataset: `dashboard_preview/data/dashboard_data.csv`
+- screenshots: `evidence/screenshots/`
+
+The preview uses only public-safe processed data and excludes direct listing identifiers.
+
+## Documentation
+
+- `docs/data_sources.md`
+- `docs/etl_workflow.md`
+- `docs/dashboard_logic.md`
+- `docs/tableau_portability_notes.md`
 
 ## Limitations
 
-- The Tableau files were updated for better portability, but they still require manual validation inside Tableau.
-- The old static screenshot-only preview has been replaced by an interactive browser dashboard that reconstructs the Final Dashboard / Step 4 logic from the cleaned processed datasets.
-- The public report has a sanitized portfolio cover page, but pages 2 onward still preserve the original report body and may contain legacy classroom-style phrasing.
-- The repository includes selected main datasets and outputs, not every historical intermediate version from the original working folder.
-- `calendar.csv` was intentionally excluded because it is extremely large and not necessary for a clean GitHub portfolio package.
-- The full `listings.csv` file is intentionally excluded from Git tracking; the repository ships with a public-safe sampled version instead.
+- The workflow is still Tableau-based, so final validation happens inside Tableau Prep and Tableau Desktop.
+- The public repository ships with a public-safe listing sample, not the full private listing export.
+- The browser dashboard is a reconstruction of the analysis layer, not a Tableau-native deployment.
 
-## Future Improvements
+## License
 
-- validate the `repo_safe` Tableau Prep and Tableau Desktop assets directly in Tableau
-- add a field-level data dictionary for the processed outputs
-- document KPI formulas directly from the final Tableau workflow
-- export additional curated dashboard previews
-- publish a Tableau Public version only after confirming public-safe data inputs
-
-For publication-specific considerations, see [publication_notes.md](docs/publication_notes.md), [tableau_portability_notes.md](docs/tableau_portability_notes.md), and [FINAL_PUBLICATION_REVIEW.md](FINAL_PUBLICATION_REVIEW.md).
+MIT License. See `LICENSE`.

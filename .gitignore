@@ -22,7 +22,12 @@ outputs/*.xlsx
 outputs/*.hyper
 data/raw/listings.csv
 reports/_sanitized_cover_temp*.pdf
-
-# Optional archive space
 archive/
 private_reference/
+*.twb~
+*.tflx
+*.trex
+*.temp.*
+
+# Local analysis clutter
+.DS_Store

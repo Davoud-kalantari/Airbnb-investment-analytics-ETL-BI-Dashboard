@@ -13,8 +13,6 @@ This note checks the copied Tableau Prep and Tableau Desktop assets for machine-
 
 ### Tableau Prep
 
-- `tableau/prep/airbnb_investment_pipeline_final.tfl`
-- `tableau/prep/airbnb_investment_pipeline_early_version.tfl`
 - `tableau/prep/airbnb_investment_pipeline_final_repo_safe.tfl`
 - `tableau/prep/airbnb_investment_pipeline_early_version_repo_safe.tfl`
 
@@ -25,7 +23,7 @@ This note checks the copied Tableau Prep and Tableau Desktop assets for machine-
 - `C:/Users/DAVIDE/OneDrive/Documenti/Repository personale di Tableau Prep/Origini dati/Final prep ricontrollato.xlsx`
 - `C:/Users/DAVIDE/Desktop/DATA SCIENCE MAGISTRALE/BIG DATA/Repository personale di Tableau Prep/Origini dati/Output flow 1 copia 2.xlsx`
 
-### Tableau Prep paths found in legacy flow files
+### Tableau Prep paths found in the original working files
 
 - `C:\\Users\\DAVIDE\\Desktop\\DATA SCIENCE MAGISTRALE\\BIG DATA\\HouseInfo.xlsx`
 - `C:\\Users\\DAVIDE\\Desktop\\DATA SCIENCE MAGISTRALE\\BIG DATA\\CitiesInSicily_BUY_RENT.xlsx`
@@ -54,7 +52,7 @@ This note checks the copied Tableau Prep and Tableau Desktop assets for machine-
 
 ### Tableau Prep repo-safe copies created
 
-The original `.tfl` files were retained, and public-safe `repo_safe` copies were created because replacing the originals in place was blocked by the local file lock state.
+The public repository keeps the `repo_safe` Tableau Prep flows only.
 
 #### `tableau/prep/airbnb_investment_pipeline_final_repo_safe.tfl`
 
@@ -78,9 +76,8 @@ Changed path:
 - `C:\\Users\\DAVIDE\\Desktop\\DATA SCIENCE MAGISTRALE\\BIG DATA\\listings.csv`
   - `..\\..\\data\\raw\\listings_sample_public.csv`
 
-## Paths That Still Need Manual Tableau Remapping or Validation
+## Paths That Still Need Manual Tableau Validation
 
-- The legacy `.tfl` files still preserve the original path references and should be treated as archive lineage copies.
 - The updated `.twb` files and `repo_safe` `.tfl` files were text-remapped automatically, but they still need to be opened in Tableau Desktop / Tableau Prep to verify that:
   - relative paths resolve correctly in the local clone
   - sheet names and field mappings still refresh correctly
@@ -94,12 +91,12 @@ Tableau Desktop and Tableau Prep should still be opened manually to validate por
 
 ## Current Portability Assessment
 
-Current portability status: **improved, but not fully validated**
+Current portability status: **cleaned for publication, but not fully tool-validated**
 
 What improved:
 
 - both Tableau Desktop workbooks now point to repository-local processed files
-- public-safe Prep flow copies now point to repository-local raw and processed files
+- public-safe Prep flows now point to repository-local raw and processed files
 - the sensitivity workbook now has a matching processed dataset inside the cleaned repository
 
 What remains:
